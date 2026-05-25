@@ -1,7 +1,14 @@
+'use client'
+
+import { useActionState } from 'react';
 import { createTicket } from "@/app/actions/ticket.actions";
 
 const NewTicketPage = () => {
 
+    const[state, formAction] = useActionState(createTicket, {
+        success: false,
+        message: ''
+    })
 
    return (
     <>
@@ -10,8 +17,16 @@ const NewTicketPage = () => {
         <h1 className='text-3xl font-bold mb-6 text-center text-blue-600'>
             Submit a Support Ticket
         </h1>
+
+        {
+            state.message && !state.success && (
+                <p className='text-red-500 mb-4 text-center'>
+                     { state.message }
+                </p>
+            )
+        }
         
-        <form action={createTicket} className='space-y-4 text-gray-700'>
+        <form action={formAction} className='space-y-4 text-gray-700'>
             <input
             className='w-full border border-gray-200 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-400'
             type='text'
