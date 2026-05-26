@@ -1,7 +1,9 @@
 'use client'
 
-import { useActionState } from 'react';
+import { useActionState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { createTicket } from "@/app/actions/ticket.actions";
+import { toast } from 'sonner';
 
 const NewTicketPage = () => {
 
@@ -9,6 +11,15 @@ const NewTicketPage = () => {
         success: false,
         message: ''
     })
+
+    const router = useRouter();
+
+    useEffect(()=>{
+        if(state.success){
+            toast.success('Ticket Submitted Successfully!');
+            router.push('/tickets');
+        }
+    }, [state.success, router])
 
    return (
     <>
