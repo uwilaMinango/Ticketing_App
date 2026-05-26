@@ -79,7 +79,8 @@ export async function getTickets(){
             {}, 
             'error', 
             error
-        )
+        );
 
+        return [];
     }
 }
