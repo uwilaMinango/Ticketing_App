@@ -193,4 +193,6 @@ export async function closeTicket(prevState:{ success: boolean, message: string 
 
     revalidatePath('/tickets');
     revalidatePath(`/tickets/${ticketId}`);
+
+    return {success: true, message: 'Ticket has closed successfully '}
 }
