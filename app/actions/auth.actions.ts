@@ -156,7 +156,20 @@ export async function loginUser(prevState: ResponseResult, formData: FormData): 
             return {success: false, message: 'Invalid email or password'}
         }
 
-    }catch(error){
+        const token = await signAuthToken({userId: user.id});
+        await setAuthCookie(token);
 
+        return {success: true, message: 'Login Successful'};
+
+    }catch(error){
+        logEvent(
+            'Unexpected error during login',
+            'auth',
+            {},
+            'error',
+            error
+        );
+
+        return {success: false, message: 'Error During Login' }
     }
 }
